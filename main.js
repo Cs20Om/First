@@ -1,49 +1,61 @@
-// Olympic Rings Start Code
+// Functionize Minecraft Fishing Start Code
+// Variables to store HTML Elements
+let fishBtn = document.getElementById('fish-btn');
+let charSelect = document.getElementById('character-select');
+let resultImg = document.getElementById('result-img');
+let numCodSpan = document.getElementById('num-cod');
+let numSalmonSpan = document.getElementById('num-salmon');
+let numTropicalSpan = document.getElementById('num-tropical');
+let numPufferSpan = document.getElementById('num-puffer');
 
-// Canvas Setup
-let cnv = document.getElementById("my-canvas");
-let ctx = cnv.getContext("2d");
-cnv.width = 440;
-cnv.height = 250;
+// Global Variables
+let numCod = 0;
+let numSalmon = 0;
+let numTropical = 0;
+let numPuffer = 0;
 
-// Call draw function once all page resources have loaded
-window.addEventListener("load", draw);
+// Add Event Listener to Calculate Button
+fishBtn.addEventListener('click', fishBtnClicked);
 
-function draw() {
-  // Background
-  ctx.fillStyle = "#eee";
-  ctx.fillRect(0, 0, cnv.width, cnv.height);
+// Event handler for fishBtn
+function fishBtnClicked() {
+  // Check Selected Character
+  let character = charSelect.value;
 
-  // Circle Line Width
-  ctx.lineWidth = 8;
-
-  // Blue Ring - Center: (100, 100) Radius: 50
-  ctx.strokeStyle = "blue";
-  ctx.beginPath();
-  ctx.arc(100, 100, 50, 0, 2 * Math.PI);
-  ctx.stroke();
-
-  // Yellow Ring - Center: (160, 150) Radius: 50
-  ctx.strokeStyle = "yellow";
-  ctx.beginPath();
-  ctx.arc(160, 150, 50, 0, 2 * Math.PI);
-  ctx.stroke();
-
-  // Black Ring - Center: (220, 100) Radius: 50
-  ctx.strokeStyle = "black";
-  ctx.beginPath();
-  ctx.arc(220, 100, 50, 0, 2 * Math.PI);
-  ctx.stroke();
-
-  // Blue Ring - Center: (280, 150) Radius: 50
-  ctx.strokeStyle = "green";
-  ctx.beginPath();
-  ctx.arc(280, 150, 50, 0, 2 * Math.PI);
-  ctx.stroke();
-
-  // Red Ring - Center: (340, 100) Radius: 50
-  ctx.strokeStyle = "red";
-  ctx.beginPath();
-  ctx.arc(340, 100, 50, 0, 2 * Math.PI);
-  ctx.stroke();
+  // Catch fish based on character
+  if (character === 'steve') {
+    // STEVE: Cod 70%, Salmon 20%, Tropical 5%, Puffer 5%
+    catchFish(0.7, 0.9, 0.95);
+   
+  } else if (character === 'alex') {
+    
+    // ALEX: Cod 10%, Salmon 10%, Tropical 30%, Puffer 50%
+   catchFish(0.1, 0.2, 0.5);
+  } else if (character === 'villager') {
+    //villager: 25% all
+    catchFish(0.25, 0.5, 0.75);
+  }
 }
+
+function catchFish(C, S, T) {
+    
+   let randNum = Math.random();
+    if (randNum < C) {
+      numCod++;
+      numCodSpan.innerHTML = numCod;
+      resultImg.src = 'img/Raw-Cod.png';
+    } else if (randNum < S) {
+      numSalmon++;
+      numSalmonSpan.innerHTML = numSalmon;
+      resultImg.src = 'img/Raw-Salmon.png';
+    } else if (randNum < T) {
+      numTropical++;
+      numTropicalSpan.innerHTML = numTropical;
+      resultImg.src = 'img/Tropical-Fish.png';
+    } else {
+      numPuffer++;
+      numPufferSpan.innerHTML = numPuffer;
+      resultImg.src = 'img/Pufferfish.png';
+    }
+}
+
